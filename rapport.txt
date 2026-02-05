@@ -1,0 +1,79 @@
+Programmation C - Incognito
+Rapport du DM
+NGUYEN Linhny - Walid RAMTANI
+
+
+
+Présentation de Incognito :
+        Le devoir consiste en l'implémentation du jeu Incognito en langage C. Le jeu se déroule sur un plateau carré, et le but est soit de déplacer son espion sur la case du château adverse (qui se situe sur les coins dans lesquels sont placés les pions de chaque équipe), soit de découvrir l'autre espion.
+
+
+Description du travail fourni :
+        Pour ce devoir, de nombreuses fonctions ont été implémentées.
+                - void implement_grid(Pion *grid[TAILLE][TAILLE],  Case espion_w, Case espion_b);
+                        permet l'implémentation de la grille de jeu
+                
+                - void draw_filled_circle(SDL_Renderer *renderer, int centerX, int centerY, int radius);
+                        permet de dessiner un cercle plein (les pions)
+                
+                - void display_grid_graph(Pion *grid[TAILLE][TAILLE], SDL_Renderer *renderer);
+                        permet l'affichage graphique de la grille de jeu
+                
+                - void display_grid(Pion *grid[TAILLE][TAILLE]);
+                        permet l'affichage de la grille de jeu
+                
+                - int move_piece(Pion *grid[TAILLE][TAILLE], Mouvement move, Couleur player);
+                        permet le déplacement d'un pion
+                
+                - int interrogate_piece(Pion *grid[TAILLE][TAILLE], Couleur player, Case interrogator, Direction questioned);
+                        permet d'interroger un pion (si le pion est un espion, la partie est gagnée)
+                
+                - int decide_in_castle(Pion *grid[TAILLE][TAILLE] , Mouvement move, Couleur player);
+                        permet de vérifier si la case d'arrivée est un château
+                
+                - int is_win(Pion *grid[TAILLE][TAILLE], Mouvement move, Couleur player);
+                        permet de vérifier si la partie est gagnée
+                
+                - void fill_table(char table_charac[TAILLE]);
+                        permet de remplir le tableau de caractères allant de a à a + TAILLE - 1
+                
+                - int search_in_table_char(char table_char[TAILLE], char c);
+                        permet de connaître l'index d'un caractère c dans le tableau de caractères
+                
+                - void update_player(char *p, Couleur player);
+                        permet de donner la lettre du joueur actuel (B ou N)
+                
+                - void read_file(FILE *incognito, Jeu *game, char table_char[TAILLE]);
+                        permet de lire le fichier d'initialisation de partie si celle-ci est enregistrée
+
+        Pour la partie graphique du jeu, le choix s'est rapporté sur SDL, nous permettant ainsi d'obtenir un plateau sur lequel il est plus aisé de voir les mouvements des pions de chacune des deux équipes. Il faudra prendre en compte le fichier "castle.bmp" fourni dans le dossier rendu pour avoir un bon fonctionnement au niveau de l'affichage du plateau de jeu (il s'agit de l'image des châteaux de chacune des deux équipes)
+
+
+Comment compiler/exécuter le programme :
+        - Pour compiler le programme, il suffit de taper la commande dans le terminal:
+                        "gcc -std=c17 -Wall -o main main.c -lSDL2 -lm"
+                        "gcc -std=c17 -Wall -o main main.c -I/usr/include/SDL2 -lSDL2 -lm" (en cas de besoin de préciser le chemin pour utiliser la bibliothèque graphique SDL)
+        - Pour exécuter le programme, il suffit de taper la commande:
+                        "./main -g"
+        L'utilisateur verra apparaître une fenêtre graphique sur laquelle il pourra visualiser le plateau de jeu ainsi que les pions de chaque équipe, tandis que les instructions de jeu s'afficheront dans le terminal. C'est aussi dans le terminal que l'utilisateur devra saisir ses actions pour jouer. 
+
+
+Difficlutés rencontrées :
+        Une difficulté majeure a été la gestion de fichier pour la sauvegarde et le chargement des parties, les bugs étant indiqués dans la partie suivante
+        Par ailleurs, il y avait aussi les gestions des erreurs de segmentation, qu'il a bien sûr fallu corriger après avoir trouvé la source du problème
+        Enfin, la prise en main de la partie graphique a été compliquée même si le choix de la bibliothèque nous revenait (non précisée dans le sujet). L'utilisation de SDL sans apprentissage dessus au préalable a rendu la manipulation plus dure mais finalement faisable, avec un bon déroulement 
+
+
+
+Bugs connus :
+        - Lorsque l'utilisateur se trouve dans le cas de la saisie de son action, si le nombre de caractères de son choix est supérieur ou égal à 2, le programme s'arrête
+        - Idem pour toute autre saisie de l'utilisateur : il faut donc qu'il suive exactement toutes les instructions de saisie pour le bon déroulement du jeu
+        - Il faut distinguer le fichier de sauvegarde de la partie de celui de chargement 
+
+
+Améliorations possibles :
+        Actuellement, la sauvegarde et le chargement de la partie se font sur deux fichiers textes distincts. Il serait plus intéressant de faire en sorte que cela se fasse sur un seule et unique fichier afin de faciliter la prise en charge de ces fonctionnalités
+
+
+Notre retour sur le devoir :
+        Ce devoir a été un bon moyen d'assimiler toutes les notions du cours de Programmation en C vues jusqu'à maintenant, en particulier les structures, les pointeurs ainsi que la gestion de fichiers. 
